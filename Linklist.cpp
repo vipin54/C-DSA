@@ -6,7 +6,7 @@ using namespace std;
 struct node{
     int data;
     struct node *next;
-}*first=NULL;
+}*first=NULL,*second=NULL,*third=NULL;
 
 void create(int A[],int n){
     int i;
@@ -26,6 +26,24 @@ void create(int A[],int n){
     }
 }
 
+void create2(int A[],int n){
+    int i;
+    struct node *t,*last;
+    second=new node;
+    second->data=A[0];
+    second->next=NULL;
+    last=second;
+
+    for(i=1;i<n;i++){
+        t=new node;
+        t->data=A[i];
+        t->next=NULL;
+        last->next=t;
+        last=t;
+
+    }
+}
+
 void display(struct node *p){
     while(p!=NULL){
         cout<<p->data<<" ";
@@ -34,6 +52,42 @@ void display(struct node *p){
     cout<<"\n";
 
 }
+
+void merge(struct node *p,struct node * q){
+    struct node *last;
+    if (p->data<q->data){
+        third=last=p;
+        p=p->next;
+        last->next=NULL;
+    }
+    else{
+        third=last=q;
+        q=q->next;
+        last->next=NULL;  
+    }
+while(p!=NULL && q!=NULL){  
+    if (p->data<q->data){
+        last->next=p;
+        last=p;
+        last->next=NULL;
+        p=p->next;
+    }
+    else{ 
+        last->next=q;
+        last=q;
+        last->next=NULL;
+        q=q->next;
+    }
+  } 
+  if (p!=NULL)
+    last->next=p;
+  
+  if (q!=NULL)
+    last->next=q;
+
+
+}
+
 int  count(struct node *p){
     int count=0;
     while(p!=NULL){
@@ -102,14 +156,18 @@ void rreverse(struct node *q,struct node *p){
 }
 int main(){
 
-int A[]={3,5,7,10,15};
+int A[]={10,20,30,40,50};
+int B[]={5,15,25,35,45};
 create(A,5);
-//display(first);
+create2(B,5);
 
 // search(first,15);
 //reverse(first);
 // rreverse(NULL,first);
 // display(first);
+// display(second);
+merge(first,second);
+display(third);
 return 0;
 }
 
