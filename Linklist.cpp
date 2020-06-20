@@ -53,30 +53,33 @@ void display(struct node *p){
 
 }
 
+
 void merge(struct node *p,struct node * q){
     struct node *last;
     if (p->data<q->data){
         third=last=p;
         p=p->next;
-        last->next=NULL;
+        third->next=NULL;
     }
     else{
         third=last=q;
         q=q->next;
-        last->next=NULL;  
+        third->next=NULL;  
     }
 while(p!=NULL && q!=NULL){  
     if (p->data<q->data){
         last->next=p;
         last=p;
-        last->next=NULL;
         p=p->next;
+        last->next=NULL;
+        
     }
     else{ 
         last->next=q;
         last=q;
-        last->next=NULL;
         q=q->next;
+        last->next=NULL;
+        
     }
   } 
   if (p!=NULL)
@@ -87,6 +90,7 @@ while(p!=NULL && q!=NULL){
 
 
 }
+
 
 int  count(struct node *p){
     int count=0;
