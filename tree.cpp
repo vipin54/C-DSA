@@ -17,10 +17,14 @@ class Tree{
     void CreateTree();
     void Preorder(Node *p);
     void Preorder() {Preorder(root);}
+    void Ipreorder(Node *p);
+    void Ipreorder() {Ipreorder(root);}
     void Postorder(Node *p);
     void Postorder() { Postorder(root); }
     void Inorder(Node *p);
     void Inorder() { Inorder(root); }
+    void Iinorder(Node *p);
+    void Iinorder() { Iinorder(root); }
     void Levelorder(Node *p);
     void Levelorder() { Levelorder(root); }
     int height(Node *p);
@@ -81,11 +85,46 @@ void Tree:: Preorder(Node *p){
     }
 }
 
+void Tree::Ipreorder(Node *p){
+    stack <Node*> st;
+    
+    while(p || !st.empty()){
+        if(p){
+            cout<<p->data<<", "<<flush;
+            st.push(p);
+            p=p->lchild;
+        }
+        else{
+            p=st.top();
+            st.pop();
+            p=p->rchild;
+        }
+    }
+}
+
 void Tree:: Inorder(Node *p){
     if(p){
         Inorder(p->lchild);
         cout<<p->data<<", "<<flush;
         Inorder(p->rchild);
+    }
+}
+
+void Tree::Iinorder(Node *p){
+    stack <Node*> st;
+    
+    while(p || !st.empty()){
+        if(p){
+            //cout<<p->data<<", "<<flush;
+            st.push(p);
+            p=p->lchild;
+        }
+        else{
+            p=st.top();
+            st.pop();
+            cout<<p->data<<", "<<flush;
+            p=p->rchild;
+        }
     }
 }
 
@@ -96,6 +135,27 @@ void Tree:: Postorder(Node *p){
         cout<<p->data<<", "<<flush;
     }
 }
+
+// void Iinorder(Node *p){
+//     stack <Node*> st;
+//     long int temp;
+//     while(p || !st.empty()){
+//         if(p){
+//             //cout<<p->data<<", "<<flush;
+//             st.push(p);
+//             p=p->lchild;
+//         }
+//         else{
+//            temp =int(st.top());
+//             st.pop();
+//             //cout<<p->data<<", "<<flush;
+//             if(temp>0){
+//                 st.push(temp);
+//             }
+//             p=p->rchild;
+//         }
+//     }
+// }
 
 void Tree::Levelorder(Node *p){
     queue <Node *> que;
@@ -139,17 +199,27 @@ int main(){
     bt.CreateTree();
     cout<<endl;
 
+    // cout << "Preorder: " << flush;
+    // bt.Preorder();
+    // cout << endl;
+
+    // cout << "Inorder: " << flush;
+    // bt.Inorder();
+    // cout << endl;
+
     cout << "Preorder: " << flush;
-    bt.Preorder();
+    bt.Ipreorder();
     cout << endl;
 
     cout << "Inorder: " << flush;
-    bt.Inorder();
+    bt.Iinorder();
     cout << endl;
  
     cout << "Postorder: " << flush;
     bt.Postorder();
     cout << endl;
+
+
  
     cout << "Levelorder: " << flush;
     bt.Levelorder();
